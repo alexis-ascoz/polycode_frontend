@@ -1,4 +1,4 @@
 const config = {
-  API_URL: 'http://localhost:3001',
+  API_URL: 'https://api.ascoz.fr',
 }
 export default config;
