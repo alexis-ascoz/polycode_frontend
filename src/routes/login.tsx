@@ -67,10 +67,17 @@ export default function Login() {
   }, [userContext, data, error, navigate]);
 
   useEffect(() => {
+    localStorage.removeItem("accessToken");
+    
+    userContext.setUser({
+      isLoggedIn: false,
+    });
+
     if (!localStorage.getItem("modal")) {
       setOpen(true);
       localStorage.setItem("modal", "true");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [helperText, setHelperText] = useState("");

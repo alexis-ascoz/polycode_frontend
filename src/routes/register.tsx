@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { Alert, Box, TextField, Typography, Container, Grid, Avatar, Checkbox, FormControlLabel } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useEffect, useState } from 'react';
+import useUser from '../hooks/user-hook';
 
 type FormData = {
   email: string;
@@ -53,6 +54,8 @@ export default function Register() {
     resolver: yupResolver(schema),
   });
 
+  const userContext = useUser();
+
   const {
     register,
     handleSubmit,
@@ -90,6 +93,15 @@ export default function Register() {
       data: { ...data, repeatPassword: undefined, acceptTerms: undefined, thirsteenYearsOld: undefined },
     });
   });
+
+  useEffect(() => {
+    localStorage.removeItem("accessToken");
+    
+    userContext.setUser({
+      isLoggedIn: false,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <main>
@@ -205,7 +217,7 @@ export default function Register() {
 
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link to="/">
+                  <Link to="/login">
                     Already have an account? Sign in
                   </Link>
                 </Grid>

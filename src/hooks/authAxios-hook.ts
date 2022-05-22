@@ -1,10 +1,12 @@
 import useAxios from 'axios-hooks';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import config from '../config';
 import useUser from './user-hook';
 
 export default function useAuthAxios(url: string, method: string) {
   const userContext = useUser();
+  const navigate = useNavigate();
 
   const axios = useAxios({
     url: config.API_URL + url,
@@ -17,11 +19,13 @@ export default function useAuthAxios(url: string, method: string) {
   const [{ error }] = axios;
 
   useEffect(() => {
-    if (error) {
-      console.log(error);
-      // userContext.setUser(null);
+    if (error?.response?.status === 401 || error?.response?.status === 403) {
+      userContext.setUser({
+        isLoggedIn: false,
+      });
+      navigate('/');
     }
-  }, [error, userContext]);
+  }, [error, userContext, navigate]);
 
   return axios;
 }

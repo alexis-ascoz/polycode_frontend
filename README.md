@@ -34,7 +34,7 @@ Cette partie ne concerne que le rendu visuel du site. [Voir le back-end](https:/
    ```
 2. Installez les dépendances.
    ```sh
-   npm install
+   yarn install
    ```
 
 ## Utilisation

@@ -48,87 +48,104 @@ export default function Exercises() {
 
   return (
     <main>
-      <Grid container rowSpacing={3}>
-        {exercisesViewed &&
-          <Grid item xs={12}>
-            <Typography variant="h4" component="h2">
-              Last viewed - {exercisesViewed.length}
-            </Typography>
+      <Box
+        component="img"
+        sx={{
+          width: '100%',
+          height: '50%',
+          objectFit: 'cover',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+        
+        src="https://www.wppourlesnuls.com/wp-content/uploads/2019/07/code-javascript-e1563276216875.jpg" alt="code"
+      />
 
-            <Grid container spacing={3} sx={{ marginTop: 1 }}>
-              {exercisesViewed.map((exercise: any, index: number) => {
-                return (
-                  <Grow
-                    in={true}
-                    style={{ transformOrigin: '0 0 0' }}
-                    {...{ timeout: 150 * index }}
-                    key={exercise.id}
-                  >
-                    <Grid item xs={12} sm={6} md={4}>
-                      <Card>
-                        <CardHeader title={exercise.title} />
+      <Box sx={{ m: 3, marginTop: '25vh' }}>
+        <Grid container rowSpacing={3}>
+          {exercisesViewed?.length > 0 &&
+            <Grid item xs={12}>
+              <Typography variant="h4" component="h2" color={"white"}>
+                Last viewed
+              </Typography>
 
-                        <CardContent>
-                          <Typography variant="body2" color="text.secondary">
-                            {exercise.description}
-                          </Typography>
+              <Grid container spacing={3} sx={{ marginTop: 1 }}>
+                {exercisesViewed.map((exercise: any, index: number) => {
+                  return (
+                    <Grow
+                      in={true}
+                      style={{ transformOrigin: '0 0 0' }}
+                      {...{ timeout: 150 * index }}
+                      key={exercise.id}
+                    >
+                      <Grid item xs={12} sm={6} md={4}>
+                        <Card>
+                          <CardHeader title={exercise.title} />
 
-                          <LinearProgressWithLabel value={exercise?.progress?.score} />
-                        </CardContent>
+                          <CardContent>
+                            <Typography variant="body2" color="text.secondary">
+                              {exercise.description}
+                            </Typography>
 
-                        <CardActions>
-                          <Button size="small" onClick={() => onClick(exercise.id)}>
-                            View
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  </Grow>
-                );
-              })}
+                            <LinearProgressWithLabel value={exercise?.progress?.score} />
+                          </CardContent>
+
+                          <CardActions>
+                            <Button size="small" onClick={() => onClick(exercise.id)}>
+                              View
+                            </Button>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    </Grow>
+                  );
+                })}
+              </Grid>
             </Grid>
-          </Grid>
-        }
+          }
 
-        {exercises &&
-          <Grid item xs={12}>
-            <Typography variant="h4" component="h2">
-              New exercises - {exercises.length}
-            </Typography>
+          {exercises?.length > 0 &&
+            <Grid item xs={12}>
+              <Typography variant="h4" component="h2" color={exercisesViewed?.length > 0 ? "black" : "white"}>
+                Exercises
+              </Typography>
 
-            <Grid item container spacing={3} sx={{ marginTop: 1 }}>
-              {exercises.map((exercise: any, index: number) => {
-                return (
-                  <Grow
-                    in={true}
-                    style={{ transformOrigin: '0 0 0' }}
-                    {...{ timeout: 150 * index }}
-                    key={exercise.id}
-                  >
-                    <Grid item xs={12} sm={6} md={4}>
-                      <Card>
-                        <CardHeader title={exercise.title} />
+              <Grid item container spacing={3} sx={{ marginTop: 1 }}>
+                {exercises.map((exercise: any, index: number) => {
+                  return (
+                    <Grow
+                      in={true}
+                      style={{ transformOrigin: '0 0 0' }}
+                      {...{ timeout: 150 * index }}
+                      key={exercise.id}
+                    >
+                      <Grid item xs={12} sm={6} md={4}>
+                        <Card>
+                          <CardHeader title={exercise.title} />
 
-                        <CardContent>
-                          <Typography variant="body2" color="text.secondary">
-                            {exercise.description}
-                          </Typography>
-                        </CardContent>
+                          <CardContent>
+                            <Typography variant="body2" color="text.secondary">
+                              {exercise.description}
+                            </Typography>
+                          </CardContent>
 
-                        <CardActions>
-                          <Button size="small" onClick={() => onClick(exercise.id)}>
-                            Start
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  </Grow>
-                );
-              })}
+                          <CardActions>
+                            <Button size="small" onClick={() => onClick(exercise.id)}>
+                              Start
+                            </Button>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    </Grow>
+                  );
+                })}
+              </Grid>
             </Grid>
-          </Grid>
-        }
-      </Grid>
+          }
+        </Grid>
+      </Box>
     </main>
   );
 }

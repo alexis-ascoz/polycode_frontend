@@ -36,25 +36,31 @@ export default function Header() {
         </Grid>
 
         {
-          userContext.user.isLoggedIn &&
-          <Grid container justifyContent={'center'}>
-            <Button onClick={() => navigate('/exercises')} color="inherit">
-              <Typography variant="body1" noWrap>
-                Exercises
-              </Typography>
-            </Button>
-          </Grid>
-        }
+          userContext.user.isLoggedIn && (
+            <>
+              <Grid container justifyContent={'center'}>
+                <Button onClick={() => navigate('/exercises')} color="inherit">
+                  <Typography variant="body1" noWrap>
+                    Tutorials
+                  </Typography>
+                </Button>
 
-        {
-          userContext.user.isLoggedIn &&
-          <Grid container justifyContent={'end'}>
-            <Button onClick={handleClick} color="inherit">
-              <Typography variant="body1" noWrap>
-                Logout
-              </Typography>
-            </Button>
-          </Grid>
+                <Button onClick={() => navigate('/exercises')} color="inherit">
+                  <Typography variant="body1" noWrap>
+                    Exercises
+                  </Typography>
+                </Button>
+              </Grid>
+
+              <Grid container justifyContent={'end'}>
+                <Button onClick={handleClick} color="inherit">
+                  <Typography variant="body1" noWrap>
+                    Logout
+                  </Typography>
+                </Button>
+              </Grid>
+            </>
+          )
         }
       </Toolbar>
     </AppBar>

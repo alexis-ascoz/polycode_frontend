@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import ReactMarkdown from "react-markdown";
-import { Alert, Backdrop, Box, Button, Fade, Grid, Modal, Typography } from "@mui/material";
+import { Alert, Backdrop, Box, Button, Card, Fade, Grid, Modal, Typography } from "@mui/material";
 import config from "../config";
 
 export function Exercise() {
@@ -58,143 +58,171 @@ export function Exercise() {
 
   return (
     <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={{
-            position: 'absolute' as 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: 'background.paper',
-            border: '2px solid #888',
-            boxShadow: 24,
-            p: 4,
-          }}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              {dataRunnedTests?.success ? 'Congratulations !' : 'Oops !'}
-            </Typography>
-            <Alert severity={dataRunnedTests?.success ? 'success' : 'error'} sx={{ mt: 2 }}>
-              {dataRunnedTests?.success ? 'You passed all tests !' : 'You pass only ' + dataRunnedTests?.score + '% of tests.'}
-            </Alert>
-          </Box>
-        </Fade>
-      </Modal>
+      <Box sx={{ m: 3 }}>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={{
+              position: 'absolute' as 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 400,
+              bgcolor: 'background.paper',
+              border: '2px solid #888',
+              boxShadow: 24,
+              p: 4,
+            }}>
+              <Typography id="transition-modal-title" variant="h6" component="h2">
+                {dataRunnedTests?.success ? 'Congratulations !' : 'Oops !'}
+              </Typography>
+              <Alert severity={dataRunnedTests?.success ? 'success' : 'error'} sx={{ mt: 2 }}>
+                {dataRunnedTests?.success ? 'You passed all tests !' : 'You pass only ' + dataRunnedTests?.score + '% of tests.'}
+              </Alert>
+            </Box>
+          </Fade>
+        </Modal>
 
-      <Grid container columnSpacing={3}>
-        <Grid item xs={12} sm={6}>
-          <h1>{exercise?.title}</h1>
+        <Grid container columnSpacing={3}>
+          <Grid item xs={12} sm={6}>
+            <h1>{exercise?.title}</h1>
 
-          <ReactMarkdown>
-            {exercise?.instructions}
-          </ReactMarkdown>
+            <ReactMarkdown>
+              {exercise?.instructions}
+            </ReactMarkdown>
 
-          {dataRunnedTest &&
-            <Box
-              component="span"
-              sx={{
-                display: 'block',
-                p: 1,
-                m: 1,
-                bgcolor: '#fff',
-                color: 'grey.800',
-                border: '2px solid',
-                borderColor: 'grey.300',
-                borderRadius: 2,
-                fontSize: '0.875rem',
-                fontWeight: '700',
-              }}
-            >
-              <Box>
-                <Typography variant="h4" align="center">
-                  {dataRunnedTest.success ? 'Success' : 'Fail'}
-                </Typography>
-              </Box>
+            {dataRunnedTest &&
+              <Box
+                component="span"
+                sx={{
+                  display: 'block',
+                  p: 1,
+                  m: 1,
+                  bgcolor: '#fff',
+                  color: 'grey.800',
+                  border: '2px solid',
+                  borderColor: 'grey.300',
+                  borderRadius: 2,
+                  fontSize: '0.875rem',
+                  fontWeight: '700',
+                }}
+              >
+                <Box>
+                  <Typography variant="h4" align="center">
+                    {dataRunnedTest.success ? 'Success' : 'Fail'}
+                  </Typography>
+                </Box>
 
-              <Box component="div" sx={{ overflow: 'auto' }}>
-                <pre>
-                  <code>
-                    <Typography variant="h6" color="text.secondary">Result :</Typography>
-                    <Typography variant="body1" color="success.main">
-                      {dataRunnedTest?.stdout || 'No output'}
-                    </Typography>
-                  </code>
-                </pre>
-
-                {!dataRunnedTest?.success &&
+                <Box component="div" sx={{ overflow: 'auto' }}>
                   <pre>
                     <code>
-                      <Typography variant="h6" color="text.secondary">Expected :</Typography>
-                      <Typography variant="body1" color="info.main">{dataRunnedTest?.expected}</Typography>
+                      <Typography variant="h6" color="text.secondary">Result :</Typography>
+                      <Typography variant="body1" color="success.main">
+                        {dataRunnedTest?.stdout || 'No output'}
+                      </Typography>
                     </code>
                   </pre>
-                }
 
-                {dataRunnedTest?.stderr &&
-                  <pre>
-                    <code>
-                      <Typography variant="h6" color="text.secondary">Error output :</Typography>
-                      <Typography variant="body1" color="error.main">{dataRunnedTest?.stderr}</Typography>
-                    </code>
-                  </pre>}
+                  {!dataRunnedTest?.success &&
+                    <pre>
+                      <code>
+                        <Typography variant="h6" color="text.secondary">Expected :</Typography>
+                        <Typography variant="body1" color="info.main">{dataRunnedTest?.expected}</Typography>
+                      </code>
+                    </pre>
+                  }
+
+                  {dataRunnedTest?.stderr &&
+                    <pre>
+                      <code>
+                        <Typography variant="h6" color="text.secondary">Error output :</Typography>
+                        <Typography variant="body1" color="error.main">{dataRunnedTest?.stderr}</Typography>
+                      </code>
+                    </pre>}
+                </Box>
               </Box>
-            </Box>
-          }
-        </Grid>
+            }
+          </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <AceEditor
-            mode={exercise?.codeLanguage?.toLowerCase() || 'javascript'}
-            theme="github"
-            onChange={onChange}
-            name="UNIQUE_ID_OF_DIV"
-            editorProps={{ $blockScrolling: true }}
-            value={code}
-            setOptions={{
-              enableBasicAutocompletion: true,
-              enableLiveAutocompletion: true,
-              enableSnippets: true
-            }}
-          />
+          <Grid item xs={12} sm={6}>
+            <Stack spacing={2}>
+              <Card sx={{ mt: 2, border: 1, borderColor: 'lightgray' }}>
+                <Typography variant="h6" align="center">
+                  Code
+                </Typography>
 
-          <Stack spacing={2}>
-            {tests.map((test: any) => (
-              <Box key={test.id}>
-                <Button variant="contained" onClick={() => executeTest({
-                  data: { code },
-                  url: `${config.API_URL}/tests/${test.id}/run`,
-                })}>
-                  {test.name}
+                <AceEditor
+                  mode={exercise?.codeLanguage?.toLowerCase() || 'javascript'}
+                  theme="github"
+                  onChange={onChange}
+                  name="UNIQUE_ID_OF_DIV"
+                  editorProps={{ $blockScrolling: true }}
+                  value={code}
+                  setOptions={{
+                    enableBasicAutocompletion: true,
+                    enableLiveAutocompletion: true,
+                    enableSnippets: true
+                  }}
+                />
+              </Card>
+              <Card sx={{ mt: 2, border: 1, borderColor: 'lightgray' }}>
+                <Box sx={{ p: 1 }}>
+                  <Typography variant="h6" align="center">
+                    Tests
+                  </Typography>
+                </Box>
+
+                <Box sx={{ p: 1 }}>
+                  <Stack spacing={1}>
+                    {tests.map((test: any) => (
+                      <Box key={test.id}>
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          onClick={() => executeTest({
+                            data: { code },
+                            url: `${config.API_URL}/tests/${test.id}/run`,
+                          })}>
+                          {test.name}
+                        </Button>
+                      </Box>
+                    ))}
+                  </Stack>
+                </Box>
+              </Card>
+
+              <Box sx={{
+                display: 'flex',
+                columnGap: 2,
+              }}>
+                <LoadingButton
+                  fullWidth
+                  loading={loading}
+                  variant="contained"
+                  onClick={() => executeTests({ data: { code } })}>
+                  Submit all tests
+                </LoadingButton>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="error"
+                  onClick={() => setCode(exercise?.baseCode)}>
+                  Reset code
                 </Button>
               </Box>
-            ))}
-
-            <Box>
-              <LoadingButton
-                fullWidth
-                loading={loading}
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={() => executeTests({ data: { code } })}>
-                Submit
-              </LoadingButton>
-              <Button variant="contained" color="error" onClick={() => setCode(exercise?.baseCode)}>
-                Reset
-              </Button>
-            </Box>
-          </Stack>
+            </Stack>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </div>
   )
 };

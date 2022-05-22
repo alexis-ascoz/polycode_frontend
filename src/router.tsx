@@ -4,14 +4,16 @@ import NotFound from "./components/NotFound";
 import Test from "./components/Test";
 import { Exercise } from "./routes/exercise";
 import Exercises from "./routes/exercises";
+import Home from "./routes/home";
 import Login from "./routes/login";
 import Register from "./routes/register";
 
 export default function Router() {
   return (
-    <Box sx={{ m: 3 }}>
+    <Box>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="exercises" element={<Exercises />} />
         <Route path="exercises/:id" element={<Exercise />} />
